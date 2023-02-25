@@ -1,7 +1,4 @@
-<<<<<<< Updated upstream
 using System;
-=======
->>>>>>> Stashed changes
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -81,12 +78,3 @@ public class Player : MonoBehaviour
             GetComponent<Transform>().position += new Vector3(xChange * Time.deltaTime, yChange * Time.deltaTime, 0);
     }
 }
-<<<<<<< Updated upstream
-/*asldfjlasdfljads
- * asdfasdf
- * dfasdfadsfad
- * asdfasdf
- * DOES THIS WORK????
- * asdfladkfjlkasdfasdfadsfadfasdfadsfewfqwef*/
-=======
->>>>>>> Stashed changes
