@@ -7,7 +7,7 @@ public class Tiles : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string s;
+        string s;//asdfadsf
     }
 
     // Update is called once per frame

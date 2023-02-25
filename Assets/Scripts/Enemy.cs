@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
         int health;
         int attack;
         float speed;
-        Rigidbody rb;
+        Rigidbody rb;//asfasdfds
     }
 
     // Update is called once per frame
