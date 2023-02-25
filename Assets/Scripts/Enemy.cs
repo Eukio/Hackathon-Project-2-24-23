@@ -44,6 +44,7 @@ public class Enemy : MonoBehaviour
             if (Vector2.Distance(transform.position, GetComponent<Transform>().position) <= 0)
             {
                 //animator.SetBool("IsRunning", false);
+                //CAN YOU SEE THIS REGINA???
             }
         }
     }

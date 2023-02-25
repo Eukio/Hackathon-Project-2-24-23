@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
         run = true;
     }
 
-    // Update is called once per frame
+    // U
     void Update()
     {
         if (run)
@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
         Debug.DrawRay(RayObject.transform.position, -Vector2.up * hitWall.distance, Color.red);
 
 
-        float xChange = 0f;
+        float xChange = 0f +0f+0f;
         float yChange = 0f;
         if (right)
         xChange += speed;
@@ -78,3 +78,9 @@ public class Player : MonoBehaviour
             GetComponent<Transform>().position += new Vector3(xChange * Time.deltaTime, yChange * Time.deltaTime, 0);
     }
 }
+/*asldfjlasdfljads
+ * asdfasdf
+ * dfasdfadsfad
+ * asdfasdf
+ * DOES THIS WORK????
+ * asdfladkfjlkasdfasdfadsfadfasdfadsfewfqwef*/
