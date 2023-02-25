@@ -1,7 +1,4 @@
-<<<<<<< Updated upstream
-using System;
-=======
->>>>>>> Stashed changes
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,17 +11,22 @@ public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
     private bool jump, left, right;
-    [SerializeField] float speed; Rigidbody2D rb;
+    [SerializeField] float speed;
+    Rigidbody2D rb;
+    [SerializeField] GameObject playerAttack;
+    [SerializeField] int health;
     [SerializeField] GameObject RayObject;
+
     RaycastHit2D hitWall;
     bool run;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         run = true;
+        playerAttack.SetActive(false);
     }
 
-    // U
+    // Us
     void Update()
     {
         if (run)
@@ -52,7 +54,11 @@ public class Player : MonoBehaviour
                 right = false;
 
             }
-
+            if(Input.GetMouseButtonDown(0))//&& animation is not Attacking
+            {
+                StartCoroutine(DelayedAttack());
+            }
+            //right click attack on for end animation
 
         }
     }
@@ -65,9 +71,21 @@ public class Player : MonoBehaviour
         float xChange = 0f +0f+0f;
         float yChange = 0f;
         if (right)
-        xChange += speed;
-        if(left)
-        xChange -= speed;
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+            playerAttack.GetComponent<PolygonCollider2D>().offset= Vector2.right;
+            xChange += speed;
+
+        }
+        if (left)
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+            playerAttack.GetComponent<PolygonCollider2D>().offset = Vector2.left;
+
+            // playerAttack.GetComponent<PolygonCollider2D>().transform.position = new Vector3(-playerAttack.transform.position.x, transform.position.y);
+
+            xChange -= speed;
+        }
 
 
 
@@ -80,13 +98,12 @@ public class Player : MonoBehaviour
         if (run == true)
             GetComponent<Transform>().position += new Vector3(xChange * Time.deltaTime, yChange * Time.deltaTime, 0);
     }
+    IEnumerator DelayedAttack()
+    {
+        playerAttack.SetActive(true);
+        yield return new WaitForSeconds(.8f);
+        playerAttack.SetActive(false);
+
+
+    }
 }
-<<<<<<< Updated upstream
-/*asldfjlasdfljads
- * asdfasdf
- * dfasdfadsfad
- * asdfasdf
- * DOES THIS WORK????
- * asdfladkfjlkasdfasdfadsfadfasdfadsfewfqwef*/
-=======
->>>>>>> Stashed changes
