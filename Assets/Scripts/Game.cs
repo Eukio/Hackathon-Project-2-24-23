@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,23 +17,3 @@ public class Game : MonoBehaviour
         
     }
 }
-=======
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Game : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        //Yes?
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}
->>>>>>> 61f0c1c (Commit message)
