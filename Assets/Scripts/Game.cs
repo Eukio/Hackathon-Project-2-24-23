@@ -71,7 +71,14 @@ public class Game : MonoBehaviour
             isBattling = false;
             //scene switched, you lose!!!
         }
-
+        
+        if(activeScene.Equals("Title"))
+        {
+            button = GameObject.Find("Play").GetComponent<Button>();
+            if (button.isPressed)
+                InputState();
+        }
+        
         if (isAnswering)
         { //timer Answer Question
             if (elapsed <= 20000 && showQuestion)
@@ -156,7 +163,6 @@ public class Game : MonoBehaviour
     }
     public void InputState() //PLAY Button Hit
     {
-        SceneManager.LoadScene("Input");
         isAnswering = true;
         runTimer = true;
         startTime = DateTime.Now.Ticks;
