@@ -43,7 +43,6 @@ public class Enemy : MonoBehaviour
         {
             if (Vector2.Distance(transform.position, GetComponent<Transform>().position) <= 0)
             {
-
             }
         }
     }
