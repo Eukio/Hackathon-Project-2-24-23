@@ -11,6 +11,7 @@ public class Game : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] Player player;
+
     bool isBattling;
     bool isAnswering;
     bool runTimer;
@@ -35,8 +36,12 @@ public class Game : MonoBehaviour
     string answerCText;
     string answerDText;
     string questionText;
+    Button button;
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     int numberOfEnemies;
     float finalscore;
     long startTime;
@@ -71,14 +76,22 @@ public class Game : MonoBehaviour
             isBattling = false;
             //scene switched, you lose!!!
         }
+<<<<<<< Updated upstream
         
+=======
+
+>>>>>>> Stashed changes
         if(activeScene.Equals("Title"))
         {
             button = GameObject.Find("Play").GetComponent<Button>();
             if (button.isPressed)
                 InputState();
         }
+<<<<<<< Updated upstream
         
+=======
+
+>>>>>>> Stashed changes
         if (isAnswering)
         { //timer Answer Question
             if (elapsed <= 20000 && showQuestion)
