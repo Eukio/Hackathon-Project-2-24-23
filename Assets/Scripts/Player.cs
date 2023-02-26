@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,11 +15,11 @@ public class Player : MonoBehaviour
     [SerializeField] float speed;
     Rigidbody2D rb;
     [SerializeField] GameObject playerAttack;
-    [SerializeField] int health;
+    [SerializeField] public int health { get; set; }
     [SerializeField] GameObject RayObject;
 
     RaycastHit2D hitWall;
-    bool run;
+    bool run { get; set; }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -107,3 +108,4 @@ public class Player : MonoBehaviour
 
     }
 }
+
