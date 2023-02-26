@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
@@ -18,15 +19,15 @@ public class Game : MonoBehaviour
     List<Term> termlist = new List<Term>();
     List<Term> displayList = new List<Term>();
     List<Enemy> enemies = new List<Enemy>();
-  
-    [SerializeField] Text question;
+
+    //[SerializeField] Text question;
 
     [SerializeField] Camera camera;
- 
-    [SerializeField] GameObject buttonA;
-    [SerializeField] GameObject buttonB;
-    [SerializeField] GameObject buttonC;
-    [SerializeField] GameObject buttonD;
+
+    //[SerializeField] GameObject buttonA;
+    //[SerializeField] GameObject buttonB;
+    //[SerializeField] GameObject buttonC;
+    //[SerializeField] GameObject buttonD;
 
     Term actualAnswer;
     string answerAText;
@@ -35,16 +36,19 @@ public class Game : MonoBehaviour
     string answerDText;
     string questionText;
 
-    
+
     int numberOfEnemies;
     float finalscore;
     long startTime;
     long elapsed;
 
     int correctQuestions;
+    Scene activeScene;
 
     void Start()
     {
+        DontDestroyOnLoad(this);
+     //   SceneManager.LoadScene("Title");
         elapsed = 0;
         startTime = 0;
         answerAText = "";
@@ -59,34 +63,27 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        activeScene = SceneManager.GetActiveScene();
 
-        /*
-         * if(scene == Battle && !isAnswering && !Battling){ //ONCE YOU HIT PLAY
-         * isAnswering = true;
-         * runTimer = true;
-         * startTime = DateTime.Now.Ticks;
-         * showQuestion = true;
-         * }
-         */
         if (player.health == 0)
         {
             isAnswering = false;
             isBattling = false;
             //scene switched, you lose!!!
-        }    
-
+        }
 
         if (isAnswering)
         { //timer Answer Question
-            if (elapsed <= 20000 && showQuestion) 
+            if (elapsed <= 20000 && showQuestion)
             { // 20 Seconds?
                 showQuestion = false;
                 RandomizeQuestion();
                 displayList.Clear();
-                buttonA.GetComponentInChildren<Text>().text = answerAText;
+             /*   buttonA.GetComponentInChildren<Text>().text = answerAText;
                 buttonB.GetComponentInChildren<Text>().text = answerBText;
                 buttonC.GetComponentInChildren<Text>().text = answerCText;
                 buttonD.GetComponentInChildren<Text>().text = answerDText;
+             */
             }
             else
             {
@@ -105,11 +102,11 @@ public class Game : MonoBehaviour
 
             if (GameObject.FindGameObjectsWithTag("Enemy").Length < 2) // #Slimes <2 SWITCH TO ANSWERING PHASE
             {
-              isBattling= false;
-              isAnswering= true;
+                isBattling = false;
+                isAnswering = true;
             }
-          //show health and stats
-          
+            //show health and stats
+
         }
 
     }
@@ -132,13 +129,14 @@ public class Game : MonoBehaviour
         answerCText = displayList[2].answer;
         answerDText = displayList[3].answer;
         //randomize the placement of questions
-  
+
 
     }
-    public void Clicked()
+    public void Clicked() 
     {
         Text buttonText = EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>();
-        if (buttonText.Equals(actualAnswer.ToString())) { 
+        if (buttonText.Equals(actualAnswer.ToString()))
+        {
             showQuestion = true;
         }
         else
@@ -146,6 +144,23 @@ public class Game : MonoBehaviour
             EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().color = Color.red;
         }
 
+    }
+    public void BattleState() //Next Button Hit
+    {
+        SceneManager.LoadScene("Battle");
+
+        isAnswering = true;
+        runTimer = true;
+        startTime = DateTime.Now.Ticks;
+        showQuestion = true;
+    }
+    public void InputState() //PLAY Button Hit
+    {
+        SceneManager.LoadScene("Input");
+        isAnswering = true;
+        runTimer = true;
+        startTime = DateTime.Now.Ticks;
+        showQuestion = true;
     }
     public void StartBattle() //EXECUTES ONCE
     {
@@ -171,13 +186,17 @@ public class Game : MonoBehaviour
         }
     }
     IEnumerator DelayedTransition()
-        {
-            //CAMERA MOVES UP
-           isAnswering= false;
-            yield return new WaitForSeconds(2f);
-            isBattling= true;
+    {
+        //CAMERA MOVES UP
+        isAnswering = false;
+        yield return new WaitForSeconds(2f);
+        isBattling = true;
 
-        }
     }
+    private void Awake()
+    {
+        if (GameObject.FindGameObjectsWithTag("Game").Length > 1)
+            Destroy(GameObject.FindGameObjectsWithTag("Game")[1]);
 
-
+    }
+}

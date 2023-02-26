@@ -36,12 +36,12 @@ public class Player : MonoBehaviour
                 jump = true;
             if (Input.GetKeyDown(KeyCode.A))
             {
-                //  GetComponent<Animator>().SetBool("running", true);
+                  GetComponent<Animator>().SetBool("Run", true);
                 left = true;
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
-                // GetComponent<Animator>().SetBool("running", true);
+                GetComponent<Animator>().SetBool("Run", true);
                 right = true;
             }
             if (Input.GetKeyUp(KeyCode.Space))
@@ -71,22 +71,47 @@ public class Player : MonoBehaviour
 
         float xChange = 0f +0f+0f;
         float yChange = 0f;
+        if(left || right)
+        {
+            if (!jump)
+                GetComponent<Animator>().SetBool("Run", true);
+            else
+            {
+                GetComponent<Animator>().SetBool("Run", false);
+            }
+        }
+        else if (!right && !left)
+            {
+                GetComponent<Animator>().SetBool("Run", false);
+            RayObject.transform.position = new Vector3(transform.position.x+.64f , RayObject.transform.position.y);
+          
+        }
+
         if (right)
         {
-            GetComponent<SpriteRenderer>().flipX = true;
+           
+            GetComponent<SpriteRenderer>().flipX = false;
             playerAttack.GetComponent<PolygonCollider2D>().offset= Vector2.right;
+            GetComponent<BoxCollider2D>().offset = new Vector2(-1.923342f, 0.5284345f);
+
+            RayObject.transform.position = new Vector3(transform.position.x - 0.76f, RayObject.transform.position.y);
             xChange += speed;
 
         }
-        if (left)
+      else  if (left)
         {
-            GetComponent<SpriteRenderer>().flipX = false;
+         
+            GetComponent<SpriteRenderer>().flipX = true;
             playerAttack.GetComponent<PolygonCollider2D>().offset = Vector2.left;
+            GetComponent<BoxCollider2D>().offset = new Vector2(1.923342f, 0.5284345f);
 
-            // playerAttack.GetComponent<PolygonCollider2D>().transform.position = new Vector3(-playerAttack.transform.position.x, transform.position.y);
+            RayObject.transform.position = new Vector3(transform.position.x + 0.76f, RayObject.transform.position.y);
+
 
             xChange -= speed;
         }
+        
+       
 
 
 
@@ -101,11 +126,18 @@ public class Player : MonoBehaviour
     }
     IEnumerator DelayedAttack()
     {
+        GetComponent<Animator>().SetBool("Attack", true);
         playerAttack.SetActive(true);
-        yield return new WaitForSeconds(.8f);
+        yield return new WaitForSeconds(.3f);
+        GetComponent<Animator>().SetBool("Attack", false);
         playerAttack.SetActive(false);
 
 
+
+    }
+    public void ResetBattle()
+    {
+        transform.position = Vector3.zero;
     }
 }
 
